@@ -1,9 +1,38 @@
-let list = $('#list')
+//jQuery
 
-list.append("<li>list something</li>");
+function newItem() {
+// add new item to the list of items
+    let li = $('<li></li>');
+    let newValue = $('#input').val();
+    $(li).append(newValue);
 
-let li = $('<li></li>');
+    if (newValue === '') {
+        alert ("You cannot add an empty task.");
+    } else {
+        $('#list').append(li);
+    }
+    
+// cross out an item from the list
+    function crossOut() {
+        li.toggleClass('strike');
+    }
 
-list.append(li);
+    li.on('dblclick', crossOut);
 
-li.addClass("strike");
+// delete an item from the list
+    let crossOutButton = $('<crossOutButton>X</crossOutButton>');
+    li.append(crossOutButton);
+
+    function deleteListItem() {
+        li.addClass('delete');
+    }
+
+    crossOutButton.on('click', deleteListItem);
+
+// reorder the items
+    $('#list').sortable();
+
+}
+
+
+
